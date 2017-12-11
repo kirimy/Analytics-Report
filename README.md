@@ -1,0 +1,2 @@
+# Analytics-Report
+Google Analyticsのデータを気合いでspreadsheetに展開させたものです。コードがとても汚くなってしまいました。
