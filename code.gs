@@ -14,15 +14,14 @@ function record(){
    Filters[i] = 'ga:pagePath=~/mag' + mag_ids[i][0];
    Filters[i] = Filters[i].toString().trim();
   }
-  Logger.log(Filters);
-  
-  Analytics(ss, mag_ids, Filters);
  
+  
+ // Analytics(ss, mag_ids, Filters);
+  /*
 }
 
-
+function Analytics(ss, mag_ids, Filters){
  /* Analytics */
-function Analytics(ss, ids, Filters){
   
   var metric = 'ga:organicSearches';
   var options = [];
@@ -30,7 +29,7 @@ function Analytics(ss, ids, Filters){
   var getdata = [];
   var rows =[];
   
- for (var i=0; i<ids.length; i++){
+ for (var i=0; i<Filters.length; i++){
   options[i] = {
     'dimensions': 'ga:date',
    // 'sort': '-ga:visits,ga:source',
@@ -40,20 +39,15 @@ function Analytics(ss, ids, Filters){
    
    try{
    data[i] = Analytics.Data.Ga.get(tableId, '2017-12-01', '2017-12-31', metric, options[i]);  //Monthly date
-   getdata[i] = JSON.parse(data);
-   rows[i] = getdata[i]["rows"];   
+   getdata[i] = JSON.parse(data[i]);
+   rows[i] = getdata[i]["rows"];
    } catch (e){
-    // Logger.log(e);
+ //    Logger.log(e);
    }
-  for(var j=0;j<rows.length;j++){
-    //ss.getRange(i+3,rows.length-j+4).setValue(rows[j][1]);
-    Logger.log(rows[i][j]);
+  for(var j=0;j<rows[i].length;j++){
+  //  if(typeof rows[i][j][0] == 'undefined'){break;}
+    ss.getRange(i+2,j+7).setValue(rows[i][j][1]);
+    //Logger.log(rows[i][j]);
    }
  }
-  
-  //days
-  for(var i=0; i<rows.length; i++){
-  //  ss.getRange(2, ss.getLastColumn()-i).setValue(rows[i][0]);
-  } 
-  
 }
